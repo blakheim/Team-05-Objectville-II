@@ -2,8 +2,8 @@ package model;
 
 public abstract class Cell {
 
-    protected int row;
-    protected int col;
+    protected final int row;
+    protected final int col;
 
     public Cell(int row, int col) {
         this.row = row;
@@ -12,6 +12,9 @@ public abstract class Cell {
 
     public abstract char getSymbol();
     public abstract boolean isPassable();
+
+    public void resetTick() {}
+    public void update() {}
 
     public int getRow() {
         return row;

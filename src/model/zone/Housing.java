@@ -30,11 +30,9 @@ public class Housing extends Zone {
     @Override
     protected long computeLevelOutput() {
         long m = minRequiredUtility();
-        return switch (level) {
-            case 1  -> m;
-            case 2  -> 2 * m;
-            case 3  -> 2 * m + receivedLifestyle;
-            default -> 0;
-        };
+        if (level == 1) return m;
+        if (level == 2) return 2 * m;
+        if (level == 3) return 2 * m + receivedLifestyle;
+        return 0;
     }
 }

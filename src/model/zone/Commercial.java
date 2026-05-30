@@ -30,11 +30,9 @@ public class Commercial extends Zone {
     @Override
     protected long computeLevelOutput() {
         long m = minRequiredUtility();
-        return switch (level) {
-            case 1  -> m;
-            case 2  -> 2 * m;
-            case 3  -> 2 * m + Math.min(receivedPopulation, receivedGoods);
-            default -> 0;
-        };
+        if (level == 1) return m;
+        if (level == 2) return 2 * m;
+        if (level == 3) return 2 * m + Math.min(receivedPopulation, receivedGoods);
+        return 0;
     }
 }

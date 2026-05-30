@@ -30,11 +30,9 @@ public class Industrial extends Zone {
     @Override
     protected long computeLevelOutput() {
         long m = minRequiredUtility();
-        return switch (level) {
-            case 1  -> m;
-            case 2  -> 2 * m;
-            case 3  -> 2 * m + receivedPopulation;
-            default -> 0;
-        };
+        if (level == 1) return m;
+        if (level == 2) return 2 * m;
+        if (level == 3) return 2 * m + receivedPopulation;
+        return 0;
     }
 }

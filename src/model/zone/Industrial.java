@@ -23,8 +23,13 @@ public class Industrial extends Zone {
     }
 
     @Override
-    protected boolean hasRequiredResources() {
+    protected boolean hasBaseResources() {
         return receivedPopulation > 0;
+    }
+
+    @Override
+    protected boolean hasRequiredResources() {
+        return receivedPopulation > minRequiredUtility();
     }
 
     @Override

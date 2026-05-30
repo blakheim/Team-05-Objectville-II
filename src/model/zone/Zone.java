@@ -76,10 +76,12 @@ public abstract class Zone extends Cell implements Producer, Consumer {
     protected abstract boolean hasRequiredResources();
     protected abstract long computeLevelOutput();
 
+    protected boolean hasBaseResources() { return true; }
+
     @Override
     public void update() {
         int target = 0;
-        if (minRequiredUtility() > 0) {
+        if (minRequiredUtility() > 0 && hasBaseResources()) {
             target = 1;
             if (hasRequiredServices()) {
                 target = 2;

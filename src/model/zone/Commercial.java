@@ -23,8 +23,14 @@ public class Commercial extends Zone {
     }
 
     @Override
-    protected boolean hasRequiredResources() {
+    protected boolean hasBaseResources() {
         return receivedPopulation > 0 && receivedGoods > 0;
+    }
+
+    @Override
+    protected boolean hasRequiredResources() {
+        long m = minRequiredUtility();
+        return receivedPopulation > m && receivedGoods > m;
     }
 
     @Override

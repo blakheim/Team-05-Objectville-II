@@ -27,7 +27,7 @@ public abstract class Zone extends Cell implements Producer, Consumer {
         this.demand = 1;
     }
 
-    @Override public boolean isPassable() { return false; }
+    @Override public boolean isPassable() { return true; }
     @Override public long getDemand()     { return demand; }
     @Override public long getOutput()     { return output; }
 

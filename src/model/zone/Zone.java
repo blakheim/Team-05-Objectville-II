@@ -47,27 +47,21 @@ public abstract class Zone extends Cell implements Producer, Consumer {
     }
 
     public void deliverUtility(String type, long amount) {
-        switch (type) {
-            case "electricity" -> deliveredElectricity += amount;
-            case "water"       -> deliveredWater       += amount;
-            case "internet"    -> deliveredInternet    += amount;
-        }
+        if      (type.equals("electricity")) deliveredElectricity += amount;
+        else if (type.equals("water"))       deliveredWater       += amount;
+        else if (type.equals("internet"))    deliveredInternet    += amount;
     }
 
     public void coverService(String type) {
-        switch (type) {
-            case "security"  -> coveredSecurity  = true;
-            case "health"    -> coveredHealth    = true;
-            case "education" -> coveredEducation = true;
-        }
+        if      (type.equals("security"))  coveredSecurity  = true;
+        else if (type.equals("health"))    coveredHealth    = true;
+        else if (type.equals("education")) coveredEducation = true;
     }
 
     public void receiveResource(String type, long amount) {
-        switch (type) {
-            case "population" -> receivedPopulation += amount;
-            case "goods"      -> receivedGoods      += amount;
-            case "lifestyle"  -> receivedLifestyle  += amount;
-        }
+        if      (type.equals("population")) receivedPopulation += amount;
+        else if (type.equals("goods"))      receivedGoods      += amount;
+        else if (type.equals("lifestyle"))  receivedLifestyle  += amount;
     }
 
     protected abstract long minRequiredUtility();

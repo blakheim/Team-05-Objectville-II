@@ -3,6 +3,7 @@ package model.zone;
 import model.Cell;
 import model.Consumer;
 import model.Producer;
+import model.Constants;
 
 public abstract class Zone extends Cell implements Producer, Consumer {
 
@@ -50,6 +51,44 @@ public abstract class Zone extends Cell implements Producer, Consumer {
         if      (type.equals("electricity")) deliveredElectricity += amount;
         else if (type.equals("water"))       deliveredWater       += amount;
         else if (type.equals("internet"))    deliveredInternet    += amount;
+    }
+
+    public long getRemainingDemand(String type) {
+        if (type == null) {
+            return 0;
+        }
+        long delivered = 0;
+        if (type.equals(Constants.ELECTRICITY)) {
+            delivered = deliveredElectricity;
+        } else if (type.equals(Constants.WATER)) {
+            delivered = deliveredWater;
+        } else if (type.equals(Constants.INTERNET)) {
+            delivered = deliveredInternet;
+        } else {
+            return 0;
+        }
+
+        long remaining = demand - delivered;
+        if (remaining < 0) {
+            return 0;
+        }
+        return remaining;
+    }
+
+    public long receiveUtility(String type, long amount) {
+        if (type == null || amount <= 0) {
+            return 0;
+        }
+        long remainingDemand = getRemainingDemand(type);
+        if (amount <= remainingDemand) {
+            deliverUtility(type, amount);
+            return amount;
+        }
+        if (remainingDemand > 0) {
+            deliverUtility(type, remainingDemand);
+            return remainingDemand;
+        }
+        return 0;
     }
 
     public void coverService(String type) {

@@ -55,13 +55,8 @@ public class SimulationEngine {
                 if (cell instanceof Zone) {
                     Zone zone = (Zone) cell;
                     int oldLevel = zone.getLevel();
-
                     zone.update();
-
-                    if (zone.getOutput() > 0) {
-                        OutputPrinter.printGenerated(zone, zone.getOutput(), zone.getResourceType());
-                    }
-
+                    OutputPrinter.printGenerated(zone, zone.getOutput(), zone.getResourceType());
                     OutputPrinter.printLevelChange(zone, oldLevel, zone.getLevel());
                 }
             }

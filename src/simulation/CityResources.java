@@ -1,5 +1,6 @@
 package simulation;
 
+import io.OutputPrinter;
 import model.Cell;
 import model.Constants;
 import model.Grid;
@@ -50,18 +51,30 @@ public class CityResources {
         }
 
         for (Industrial industrial : industrialZones) {
-            industrial.receiveResource(Constants.POPULATION, populationShare);
+            if (populationShare > 0) {
+                industrial.receiveResource(Constants.POPULATION, populationShare);
+                OutputPrinter.printResourceReceived(industrial, populationShare, Constants.POPULATION);
+            }
         }
 
         for (Commercial commercial : commercialZones) {
-            commercial.receiveResource(Constants.POPULATION, populationShare);
-            commercial.receiveResource(Constants.GOODS, goodsShare);
+            if (populationShare > 0) {
+                commercial.receiveResource(Constants.POPULATION, populationShare);
+                OutputPrinter.printResourceReceived(commercial, populationShare, Constants.POPULATION);
+            }
+
+            if (goodsShare > 0) {
+                commercial.receiveResource(Constants.GOODS, goodsShare);
+                OutputPrinter.printResourceReceived(commercial, goodsShare, Constants.GOODS);
+            }
         }
 
         for (Housing housing : housingZones) {
-            housing.receiveResource(Constants.LIFESTYLE, lifestyleShare);
+            if (lifestyleShare > 0) {
+                housing.receiveResource(Constants.LIFESTYLE, lifestyleShare);
+                OutputPrinter.printResourceReceived(housing, lifestyleShare, Constants.LIFESTYLE);
+            }
         }
-
         populationPool = 0;
         goodsPool = 0;
         lifestylePool = 0;

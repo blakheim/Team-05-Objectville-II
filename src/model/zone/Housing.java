@@ -35,4 +35,18 @@ public class Housing extends Zone {
         if (level == 3) return 2 * m + receivedLifestyle;
         return 0;
     }
+
+    @Override
+    public boolean needsService(String serviceType){
+        return serviceType.equals("security")
+                || serviceType.equals("health")
+                || serviceType.equals("education");
+    }
+
+    @Override
+    public boolean needsUtility(String utilityType) {
+        return utilityType.equals("electricity")
+                || utilityType.equals("water")
+                || utilityType.equals("internet");
+    }
 }

@@ -29,8 +29,7 @@ public class Commercial extends Zone {
 
     @Override
     protected boolean hasRequiredResources() {
-        long m = minRequiredUtility();
-        return receivedPopulation > m && receivedGoods > m;
+        return receivedPopulation > 0 && receivedGoods > 0;
     }
 
     @Override
@@ -40,5 +39,17 @@ public class Commercial extends Zone {
         if (level == 2) return 2 * m;
         if (level == 3) return 2 * m + Math.min(receivedPopulation, receivedGoods);
         return 0;
+    }
+
+    @Override
+    public boolean needsService(String serviceType) {
+        return serviceType.equals("security");
+    }
+
+    @Override
+    public boolean needsUtility(String utilityType) {
+        return utilityType.equals("electricity")
+                || utilityType.equals("water")
+                || utilityType.equals("internet");
     }
 }

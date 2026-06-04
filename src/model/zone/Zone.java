@@ -54,7 +54,7 @@ public abstract class Zone extends Cell implements Producer, Consumer {
     }
 
     public long getRemainingDemand(String type) {
-        if (type == null) {
+        if (type == null || !needsUtility(type)){
             return 0;
         }
         long delivered = 0;
@@ -108,13 +108,15 @@ public abstract class Zone extends Cell implements Producer, Consumer {
     protected abstract boolean hasRequiredServices();
     protected abstract boolean hasRequiredResources();
     protected abstract long computeLevelOutput();
+    public abstract boolean needsService(String serviceType);
+    public abstract boolean needsUtility(String utilityType);
 
     protected boolean hasBaseResources() { return true; }
 
     @Override
     public void update() {
         int target = 0;
-        if (minRequiredUtility() > 0 && hasBaseResources()) {
+        if (minRequiredUtility() > 0) {
             target = 1;
             if (hasRequiredServices()) {
                 target = 2;

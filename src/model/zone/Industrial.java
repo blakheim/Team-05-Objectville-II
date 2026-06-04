@@ -29,7 +29,7 @@ public class Industrial extends Zone {
 
     @Override
     protected boolean hasRequiredResources() {
-        return receivedPopulation > minRequiredUtility();
+        return receivedPopulation > 0;
     }
 
     @Override
@@ -39,5 +39,16 @@ public class Industrial extends Zone {
         if (level == 2) return 2 * m;
         if (level == 3) return 2 * m + receivedPopulation;
         return 0;
+    }
+
+    @Override
+    public boolean needsService(String serviceType) {
+        return serviceType.equals("security");
+    }
+
+    @Override
+    public boolean needsUtility(String utilityType){
+        return utilityType.equals("electricity")
+                || utilityType.equals("water");
     }
 }

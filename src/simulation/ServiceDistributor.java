@@ -27,17 +27,21 @@ import model.zone.Zone;
 
                     if (cell instanceof Zone && isWithinRadius(serviceBuilding, cell)) {
                         Zone zone = (Zone) cell;
-                        zone.coverService(serviceBuilding.getServiceType());
-                        OutputPrinter.printServiceReceived(zone, serviceBuilding.getServiceType());
+                        String serviceType = serviceBuilding.getServiceType();
+
+                        if (zone.needsService(serviceType)) {
+                            zone.coverService(serviceType);
+                            OutputPrinter.printServiceReceived(zone, serviceType);
+                        }
                     }
                 }
             }
         }
 
         private boolean isWithinRadius(ServiceBuilding serviceBuilding, Cell cell) {
-            int distance = Math.abs(serviceBuilding.getRow() - cell.getRow())
-                    + Math.abs(serviceBuilding.getCol() - cell.getCol());
-
-            return distance <= serviceBuilding.getRadius();
+            int rowDifference = serviceBuilding.getRow() - cell.getRow();
+            int colDifference = serviceBuilding.getCol() - cell.getCol();
+            int radius = serviceBuilding.getRadius();
+            return rowDifference * rowDifference + colDifference * colDifference <= radius * radius;
         }
     }
